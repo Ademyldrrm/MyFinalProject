@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -7,9 +8,27 @@ namespace Business.Concrete
     {
         private IProductDal _productDal;
 
+        public InMemoryProductManager(IProductDal productDal)
+        {
+            _productDal = productDal;
+        }
+
         public List<Product> GetAll()
         {
             return _productDal.GetAll();
+        }
+
+
+        public List<Product> GetAll(Expression<Func<Product, bool>>? filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable CS8614 // Nullability of reference types in type of parameter doesn't match implicitly implemented member.
+        public Product Get(Expression<Func<Product, bool>> filter)
+#pragma warning restore CS8614 // Nullability of reference types in type of parameter doesn't match implicitly implemented member.
+        {
+            throw new NotImplementedException();
         }
 
         public void Add(Product product)
