@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -24,16 +25,14 @@ namespace Business.Concrete
         {
             _productDal = productDal;
         }
-
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             //business codes
            //validation
 
            
-           ValidationTool.Validate(new ProductValidator(), product);
-            _productDal.Add(product);
-
+           _productDal.Add(product);
 
             return  new SucsesResult(Messages.ProductAdded);
         }
